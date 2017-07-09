@@ -120,4 +120,22 @@ public class User {
     public void setRecipientList(List<Recipient> recipientList) {
         this.recipientList = recipientList;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", enabled=" + enabled +
+                ", primaryAccount=" + primaryAccount +
+                ", savingsAccount=" + savingsAccount +
+                ", appointmentList=" + appointmentList +
+                ", recipientList=" + recipientList +
+                '}';
+    }
 }

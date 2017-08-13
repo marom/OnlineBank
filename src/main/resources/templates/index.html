@@ -5,7 +5,8 @@
 
 <body>
 <div class="container">
-    <div class="main-center ">
+    <div class="row">
+    <div class="main-center">
         <form class="form-signin">
             <h2 class="form-signin-heading" th:text="#{please_signin}">Please sign in</h2>
             <label for="userName" class="sr-only" th:text="#{userName}"></label>
@@ -17,8 +18,15 @@
                     <input type="checkbox" value="remember-me" th:text="#{rememberme}"/>
                 </label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{signin}">Sign in</button>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{signin}">Sign in</button>
+            </div>
         </form>
+
+        <div class="form-group">
+            <a type="submit" class="btn btn-lg btn-info btn-block" th:href="@{/signup}">Sign up!</a>
+        </div>
+    </div>
     </div>
 </div>
 

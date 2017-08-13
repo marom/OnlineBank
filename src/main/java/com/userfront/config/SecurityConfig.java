@@ -20,6 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private Environment env;
 
+    @Autowired
+    private UserSecurityService userSecurityService;
+
     private static final String SALT = "ebankdemo";
 
     @Bean

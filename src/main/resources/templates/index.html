@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="common/header :: common-header"/>
-<head th:replace="common/header :: locale" />
+<head th:replace="common/header :: locale"/>
 
 <body>
 <div class="container">
-    <div class="row">
     <div class="main-center">
         <form class="form-signin">
+
             <h2 class="form-signin-heading" th:text="#{please_signin}">Please sign in</h2>
-            <label for="userName" class="sr-only" th:text="#{userName}"></label>
-            <input type="text" id="userName" class="form-control" th:placeholder="#{userName}" required="required" autofocus="autofocus" />
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" class="form-control" th:placeholder="#{password}" required="required" />
+
+            <div class="form-group">
+                <label for="userName" class="sr-only" th:text="#{userName}"></label>
+                <input type="text" id="userName" class="form-control" th:placeholder="#{userName}" required="required"
+                       autofocus="autofocus"/>
+            </div>
+            <div class="form-group">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" class="form-control" th:placeholder="#{password}"
+                       required="required"/>
+            </div>
             <div class="checkbox">
                 <label>
                     <input type="checkbox" value="remember-me" th:text="#{rememberme}"/>
@@ -22,11 +29,10 @@
                 <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{signin}">Sign in</button>
             </div>
         </form>
-        <hr />
+        <hr/>
         <div class="form-group">
             <a type="submit" class="btn btn-lg btn-info btn-block" th:href="@{/signup}">Sign up!</a>
         </div>
-    </div>
     </div>
 </div>
 

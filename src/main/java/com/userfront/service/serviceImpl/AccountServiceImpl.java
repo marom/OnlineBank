@@ -4,12 +4,14 @@ import com.userfront.dao.PrimaryAccountDao;
 import com.userfront.dao.SavingsAccountDao;
 import com.userfront.domain.PrimaryAccount;
 import com.userfront.domain.SavingsAccount;
+import com.userfront.domain.User;
 import com.userfront.service.AccountService;
 import com.userfront.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -24,6 +26,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private UserService userService;
+
 
 
     public PrimaryAccount createPrimaryAccount() {
@@ -44,6 +47,21 @@ public class AccountServiceImpl implements AccountService {
         savingsAccountDao.save(savingsAccount);
 
         return savingsAccountDao.findByAccountNumber(savingsAccount.getAccountNumber());
+    }
+
+    @Override
+    public void deposit(String accountType, double amount, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+
+        if (accountType.equalsIgnoreCase("Primary")) {
+            PrimaryAccount primaryAccount = user.getPrimaryAccount();
+            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().add(new BigDecimal(amount)));
+            primaryAccountDao.save(primaryAccount);
+        } else if (accountType.equalsIgnoreCase("Savings")) {
+            SavingsAccount savingsAccount = user.getSavingsAccount();
+            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().add(new BigDecimal(amount)));
+            savingsAccountDao.save(savingsAccount);
+        }
     }
 
     private int accountGen() {

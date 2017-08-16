@@ -6,18 +6,21 @@
 <body>
 <div class="container">
     <div class="main-center">
-        <form class="form-signin">
+        <div class="bg-danger" th:if="${param.error}">
+            Invalid username and secret.
+        </div>
+        <form class="form-signin" th:action="@{/index}" method="post">
 
             <h2 class="form-signin-heading" th:text="#{please_signin}">Please sign in</h2>
 
             <div class="form-group">
                 <label for="userName" class="sr-only" th:text="#{userName}"></label>
-                <input type="text" id="userName" class="form-control" th:placeholder="#{userName}" required="required"
+                <input type="text" id="userName" class="form-control" th:placeholder="#{userName}" name="username" required="required"
                        autofocus="autofocus"/>
             </div>
             <div class="form-group">
                 <label for="password" class="sr-only">Password</label>
-                <input type="password" id="password" class="form-control" th:placeholder="#{password}"
+                <input type="password" id="password" class="form-control" th:placeholder="#{password}" name="password"
                        required="required"/>
             </div>
             <div class="checkbox">

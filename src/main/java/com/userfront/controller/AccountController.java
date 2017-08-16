@@ -30,7 +30,6 @@ public class AccountController {
         User user = userService.findByUsername(principal.getName());
         PrimaryAccount primaryAccount = user.getPrimaryAccount();
         model.addAttribute("primaryAccount", primaryAccount);
-
         return "primaryAccount";
     }
 
@@ -40,7 +39,6 @@ public class AccountController {
         User user = userService.findByUsername(principal.getName());
         SavingsAccount savingsAccount = user.getSavingsAccount();
         model.addAttribute("savingsAccount", savingsAccount);
-
         return "savingsAccount";
     }
 
@@ -49,14 +47,21 @@ public class AccountController {
 
         model.addAttribute("accountType", "");
         model.addAttribute("amount", "");
-
         return "deposit";
     }
 
     @RequestMapping(value = "/deposit", method = RequestMethod.POST)
     public String depositPOST(@ModelAttribute("amount") String amount, @ModelAttribute("accountType") String accountType, Principal principal) {
-        accountService.deposit(accountType, Double.parseDouble(amount), principal);
 
+        accountService.deposit(accountType, Double.parseDouble(amount), principal);
         return "redirect:/userFront";
+    }
+
+    @RequestMapping("/withdraw")
+    public String withdraw(Model model) {
+
+        model.addAttribute("accountType", "");
+        model.addAttribute("amount", "");
+        return "withdraw";
     }
 }

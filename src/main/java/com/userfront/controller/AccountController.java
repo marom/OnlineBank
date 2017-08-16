@@ -1,9 +1,11 @@
 package com.userfront.controller;
 
 import com.userfront.domain.PrimaryAccount;
+import com.userfront.domain.PrimaryTransaction;
 import com.userfront.domain.SavingsAccount;
 import com.userfront.domain.User;
 import com.userfront.service.AccountService;
+import com.userfront.service.TransactionService;
 import com.userfront.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/account")
@@ -24,12 +27,19 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private TransactionService transactionService;
+
     @RequestMapping("/primaryAccount")
     public String primaryAccount(Principal principal, Model model) {
 
         User user = userService.findByUsername(principal.getName());
         PrimaryAccount primaryAccount = user.getPrimaryAccount();
+
+        List<PrimaryTransaction> primaryAccountTransactions = transactionService.findPrimaryAccountTransactions(principal.getName());
+
         model.addAttribute("primaryAccount", primaryAccount);
+        model.addAttribute("primaryAccountTransactions", primaryAccountTransactions);
         return "primaryAccount";
     }
 

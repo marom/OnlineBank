@@ -52,8 +52,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-th-each="primaryTransaction : ${primaryTransactionList}">
-                <td data-th-text="${primaryTransaction.date}">...</td>
+            <tr data-th-each="primaryTransaction : ${primaryAccountTransactions}">
+                <td data-th-text="${#dates.format(primaryTransaction.date, 'dd-mm-yyyy HH:mm:ss')}">...</td>
                 <td data-th-text="${primaryTransaction.description}">...</td>
                 <td data-th-text="${primaryTransaction.type}">...</td>
                 <td data-th-text="${primaryTransaction.status}">...</td>

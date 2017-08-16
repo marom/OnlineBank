@@ -51,6 +51,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void deposit(String accountType, double amount, Principal principal) {
+
         User user = userService.findByUsername(principal.getName());
 
         if (accountType.equalsIgnoreCase("Primary")) {
@@ -63,6 +64,23 @@ public class AccountServiceImpl implements AccountService {
             savingsAccountDao.save(savingsAccount);
         }
     }
+
+    @Override
+    public void withdraw(String accountType, double amount, Principal principal) {
+
+        User user = userService.findByUsername(principal.getName());
+
+        if (accountType.equalsIgnoreCase("Primary")) {
+            PrimaryAccount primaryAccount = user.getPrimaryAccount();
+            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().subtract(new BigDecimal(amount)));
+            primaryAccountDao.save(primaryAccount);
+        } else if (accountType.equalsIgnoreCase("Savings")) {
+            SavingsAccount savingsAccount = user.getSavingsAccount();
+            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));
+            savingsAccountDao.save(savingsAccount);
+        }
+    }
+
 
     private int accountGen() {
         return ++NEXT_ACCOUNT_NUMBER;

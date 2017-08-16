@@ -64,4 +64,11 @@ public class AccountController {
         model.addAttribute("amount", "");
         return "withdraw";
     }
+
+    @RequestMapping(value = "/withdraw", method = RequestMethod.POST)
+    public String withdrawPOST(@ModelAttribute("amount") String amount, @ModelAttribute("accountType") String accountType, Principal principal) {
+
+        accountService.withdraw(accountType, Double.parseDouble(amount), principal);
+        return "redirect:/userFront";
+    }
 }

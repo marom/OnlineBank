@@ -36,6 +36,10 @@ public class TransactionServiceImpl implements TransactionService {
         primaryTransactionDao.save(primaryTransaction);
     }
 
+    public void savePrimaryAccountWithdrawTransaction(PrimaryTransaction primaryTransaction) {
+        primaryTransactionDao.save(primaryTransaction);
+    }
+
     @Override
     public List<SavingsTransaction> findSavingsAccountTransactions(String userName) {
 
@@ -48,5 +52,8 @@ public class TransactionServiceImpl implements TransactionService {
         savingsTransactionsDao.save(savingsTransaction);
     }
 
+    public void saveSavingsAccountWithdrawTransaction(SavingsTransaction savingsTransaction) {
+        savingsTransactionsDao.save(savingsTransaction);
+    }
 
 }

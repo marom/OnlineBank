@@ -2,10 +2,7 @@ package com.userfront.service.serviceImpl;
 
 import com.userfront.dao.PrimaryAccountDao;
 import com.userfront.dao.SavingsAccountDao;
-import com.userfront.domain.PrimaryAccount;
-import com.userfront.domain.PrimaryTransaction;
-import com.userfront.domain.SavingsAccount;
-import com.userfront.domain.User;
+import com.userfront.domain.*;
 import com.userfront.service.AccountService;
 import com.userfront.service.TransactionService;
 import com.userfront.service.UserService;
@@ -70,6 +67,9 @@ public class AccountServiceImpl implements AccountService {
             SavingsAccount savingsAccount = user.getSavingsAccount();
             savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().add(new BigDecimal(amount)));
             savingsAccountDao.save(savingsAccount);
+
+            SavingsTransaction savingsTransaction = new SavingsTransaction(new Date(), "Deposit to Primary Account", "Account", "Finished", amount, savingsAccount.getAccountBalance(), savingsAccount);
+            transactionService.saveSavingsAccountDepositTransaction(savingsTransaction);
         }
     }
 

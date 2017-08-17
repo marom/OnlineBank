@@ -1,9 +1,6 @@
 package com.userfront.controller;
 
-import com.userfront.domain.PrimaryAccount;
-import com.userfront.domain.PrimaryTransaction;
-import com.userfront.domain.SavingsAccount;
-import com.userfront.domain.User;
+import com.userfront.domain.*;
 import com.userfront.service.AccountService;
 import com.userfront.service.TransactionService;
 import com.userfront.service.UserService;
@@ -48,7 +45,11 @@ public class AccountController {
 
         User user = userService.findByUsername(principal.getName());
         SavingsAccount savingsAccount = user.getSavingsAccount();
+
+        List<SavingsTransaction> savingsAccountTransactions = transactionService.findSavingsAccountTransactions(principal.getName());
+
         model.addAttribute("savingsAccount", savingsAccount);
+        model.addAttribute("savingsAccountTransactions", savingsAccountTransactions);
         return "savingsAccount";
     }
 

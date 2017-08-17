@@ -1,7 +1,9 @@
 package com.userfront.service.serviceImpl;
 
 import com.userfront.dao.PrimaryTransactionDao;
+import com.userfront.dao.SavingsTransactionsDao;
 import com.userfront.domain.PrimaryTransaction;
+import com.userfront.domain.SavingsTransaction;
 import com.userfront.domain.User;
 import com.userfront.service.TransactionService;
 import com.userfront.service.UserService;
@@ -20,6 +22,9 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private PrimaryTransactionDao primaryTransactionDao;
 
+    @Autowired
+    private SavingsTransactionsDao savingsTransactionsDao;
+
     @Override
     public List<PrimaryTransaction> findPrimaryAccountTransactions(String username) {
 
@@ -30,4 +35,18 @@ public class TransactionServiceImpl implements TransactionService {
     public void savePrimaryAccountDepositTransaction(PrimaryTransaction primaryTransaction) {
         primaryTransactionDao.save(primaryTransaction);
     }
+
+    @Override
+    public List<SavingsTransaction> findSavingsAccountTransactions(String userName) {
+
+        User user = userService.findByUsername(userName);
+        return user.getSavingsAccount().getSavingsTransactionList();
+    }
+
+    @Override
+    public void saveSavingsAccountDepositTransaction(SavingsTransaction savingsTransaction) {
+        savingsTransactionsDao.save(savingsTransaction);
+    }
+
+
 }

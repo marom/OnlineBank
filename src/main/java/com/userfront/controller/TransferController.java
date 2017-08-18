@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/transfer")
@@ -64,5 +65,13 @@ public class TransferController {
         recipient.setUser(user);
         transactionService.saveRecipient(recipient);
         return "redirect:/transfer/recipient";
+    }
+
+    @RequestMapping(value = "/recipients", method = RequestMethod.GET)
+    public String recipients(Model model, Principal principal) {
+
+        List<Recipient> recipients = transactionService.findRecipientList(principal);
+        model.addAttribute("recipients", recipients);
+        return "recipients";
     }
 }

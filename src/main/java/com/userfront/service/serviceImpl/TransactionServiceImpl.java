@@ -8,31 +8,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private PrimaryTransactionDao primaryTransactionDao;
-
-    @Autowired
     private SavingsTransactionsDao savingsTransactionDao;
-
-    @Autowired
     private PrimaryAccountDao primaryAccountDao;
-
-    @Autowired
     private SavingsAccountDao savingsAccountDao;
-
-    @Autowired
     private RecipientDao recipientDao;
 
+    @Autowired
+    public TransactionServiceImpl(UserService userService, PrimaryTransactionDao primaryTransactionDao, SavingsTransactionsDao savingsTransactionDao,
+                                  PrimaryAccountDao primaryAccountDao, SavingsAccountDao savingsAccountDao, RecipientDao recipientDao) {
+        this.userService = userService;
+        this.primaryTransactionDao = primaryTransactionDao;
+        this.savingsTransactionDao = savingsTransactionDao;
+        this.primaryAccountDao = primaryAccountDao;
+        this.savingsAccountDao = savingsAccountDao;
+        this.recipientDao = recipientDao;
+    }
 
     @Override
     public List<PrimaryTransaction> findPrimaryAccountTransactions(String username) {
@@ -91,6 +91,15 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void saveRecipient(Recipient recipient) {
         recipientDao.save(recipient);
+    }
+
+    @Override
+    public List<Recipient> findRecipientList(Principal principal) {
+        String username = principal.getName();
+        List<Recipient> recipients = recipientDao.findAllBy().stream()
+                .filter(recipient -> username.equals(recipient.getUser().getUsername()))
+                .collect(Collectors.toList());
+        return recipients;
     }
 
 

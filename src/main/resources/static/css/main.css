@@ -1,3 +1,16 @@
+
+body {
+    background-color: transparent;
+}
+
+html {
+    background: url("/images/bg8.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .main {
     margin-top: 70px;
 }

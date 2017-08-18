@@ -43,3 +43,5 @@ $.toggleShowPassword({
     field: '#password',
     control: "#showPassword"
 });
+
+$.transferDisplay();

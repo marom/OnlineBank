@@ -1,6 +1,7 @@
 package com.userfront.controller;
 
 import com.userfront.domain.PrimaryAccount;
+import com.userfront.domain.Recipient;
 import com.userfront.domain.SavingsAccount;
 import com.userfront.domain.User;
 import com.userfront.service.TransactionService;
@@ -46,5 +47,15 @@ public class TransferController {
         transactionService.betweenAccountsTransfer(transferFrom, transferTo, amount, primaryAccount, savingsAccount);
 
         return "redirect:/userFront";
+    }
+
+    @RequestMapping("/recipient")
+    public String recipient(Model model) {
+
+        Recipient recipient = new Recipient();
+
+        model.addAttribute("recipient", recipient);
+
+        return "recipient";
     }
 }

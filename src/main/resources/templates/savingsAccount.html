@@ -48,7 +48,7 @@
             </thead>
             <tbody>
             <tr data-th-each="savingsTransaction : ${savingsAccountTransactions}">
-                <td data-th-text="${#dates.format(savingsTransaction.date, 'dd-mm-yyyy HH:mm:ss')}">...</td>
+                <td data-th-text="${#dates.format(savingsTransaction.date, 'dd-MM-yyyy HH:mm:ss')}">...</td>
                 <td data-th-text="${savingsTransaction.description}">...</td>
                 <td data-th-text="${savingsTransaction.type}">...</td>
                 <td data-th-text="${savingsTransaction.status}">...</td>

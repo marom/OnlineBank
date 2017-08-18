@@ -19,11 +19,14 @@ import java.security.Principal;
 @RequestMapping("/transfer")
 public class TransferController {
 
-    @Autowired
     private TransactionService transactionService;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    public TransferController(TransactionService transactionService, UserService userService) {
+        this.transactionService = transactionService;
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/transferBetweenAccounts", method = RequestMethod.GET)
     public String betweenAccounts(Model model) {

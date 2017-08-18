@@ -33,7 +33,6 @@ public class TransferController {
         model.addAttribute("transferFrom", "");
         model.addAttribute("transferTo", "");
         model.addAttribute("amount", "");
-
         return "transferBetweenAccounts";
     }
 
@@ -48,17 +47,22 @@ public class TransferController {
         PrimaryAccount primaryAccount = user.getPrimaryAccount();
         SavingsAccount savingsAccount = user.getSavingsAccount();
         transactionService.betweenAccountsTransfer(transferFrom, transferTo, amount, primaryAccount, savingsAccount);
-
         return "redirect:/userFront";
     }
 
-    @RequestMapping("/recipient")
+    @RequestMapping(value = "/recipient", method = RequestMethod.GET)
     public String recipient(Model model) {
 
         Recipient recipient = new Recipient();
-
         model.addAttribute("recipient", recipient);
-
         return "recipient";
+    }
+
+    @RequestMapping(value = "recipient/save", method = RequestMethod.POST)
+    public String recipientPost(@ModelAttribute("recipient") Recipient recipient, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        recipient.setUser(user);
+        transactionService.saveRecipient(recipient);
+        return "redirect:/transfer/recipient";
     }
 }

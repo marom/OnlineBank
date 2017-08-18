@@ -1,9 +1,6 @@
 package com.userfront.service.serviceImpl;
 
-import com.userfront.dao.PrimaryAccountDao;
-import com.userfront.dao.PrimaryTransactionDao;
-import com.userfront.dao.SavingsAccountDao;
-import com.userfront.dao.SavingsTransactionsDao;
+import com.userfront.dao.*;
 import com.userfront.domain.*;
 import com.userfront.service.TransactionService;
 import com.userfront.service.UserService;
@@ -32,6 +29,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private SavingsAccountDao savingsAccountDao;
+
+    @Autowired
+    private RecipientDao recipientDao;
 
 
     @Override
@@ -87,5 +87,11 @@ public class TransactionServiceImpl implements TransactionService {
             throw new Exception("Invalid Transfer");
         }
     }
+
+    @Override
+    public void saveRecipient(Recipient recipient) {
+        recipientDao.save(recipient);
+    }
+
 
 }

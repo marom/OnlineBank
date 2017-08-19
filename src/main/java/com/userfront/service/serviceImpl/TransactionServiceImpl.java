@@ -104,5 +104,10 @@ public class TransactionServiceImpl implements TransactionService {
         return recipientDao.findByName(recipientName);
     }
 
+    @Override
+    public void deleteRecipientByName(String recipientName) {
+        recipientDao.deleteByName(recipientName);
+    }
+
 
 }

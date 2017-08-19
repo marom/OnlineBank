@@ -25,4 +25,6 @@ public interface TransactionService {
     List<Recipient> findRecipientList(Principal principal);
 
     Recipient findRecipientByName(String recipientName);
+
+    void deleteRecipientByName(String recipientName);
 }

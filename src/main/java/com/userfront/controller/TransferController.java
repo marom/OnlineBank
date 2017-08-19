@@ -8,6 +8,7 @@ import com.userfront.service.TransactionService;
 import com.userfront.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,5 +83,15 @@ public class TransferController {
         Recipient recipient = transactionService.findRecipientByName(recipientName);
         model.addAttribute("recipient", recipient);
         return "recipient";
+    }
+
+    @RequestMapping(value = "/recipients/delete", method = RequestMethod.GET)
+    @Transactional
+    public String recipientDelete(@RequestParam(value = "recipientName") String recipientName, Model model, Principal principal) {
+
+        transactionService.deleteRecipientByName(recipientName);
+        List<Recipient> recipients = transactionService.findRecipientList(principal);
+        model.addAttribute("recipients", recipients);
+        return "recipients";
     }
 }

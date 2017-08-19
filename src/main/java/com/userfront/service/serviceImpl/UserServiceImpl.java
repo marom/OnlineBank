@@ -88,7 +88,6 @@ public class UserServiceImpl implements UserService {
 
             localUser = userDao.save(user);
         }
-
         return localUser;
     }
 

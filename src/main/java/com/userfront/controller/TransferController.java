@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -64,7 +65,7 @@ public class TransferController {
         User user = userService.findByUsername(principal.getName());
         recipient.setUser(user);
         transactionService.saveRecipient(recipient);
-        return "redirect:/transfer/recipient";
+        return "redirect:/transfer/recipients";
     }
 
     @RequestMapping(value = "/recipients", method = RequestMethod.GET)
@@ -73,5 +74,13 @@ public class TransferController {
         List<Recipient> recipients = transactionService.findRecipientList(principal);
         model.addAttribute("recipients", recipients);
         return "recipients";
+    }
+
+    @RequestMapping(value = "/recipient/edit", method = RequestMethod.GET)
+    public String recipientEdit(@RequestParam(value = "recipientName") String recipientName, Model model) {
+
+        Recipient recipient = transactionService.findRecipientByName(recipientName);
+        model.addAttribute("recipient", recipient);
+        return "recipient";
     }
 }

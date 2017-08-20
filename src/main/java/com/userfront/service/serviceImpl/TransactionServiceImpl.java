@@ -74,14 +74,19 @@ public class TransactionServiceImpl implements TransactionService {
 
             PrimaryTransaction primaryTransaction = new PrimaryTransaction(new Date(), "Between account transfer from " + transferFrom + " to " + transferTo, "Account", "Finished", Double.parseDouble(amount), primaryAccount.getAccountBalance(), primaryAccount);
             primaryTransactionDao.save(primaryTransaction);
+            SavingsTransaction savingsTransaction = new SavingsTransaction(new Date(), "Between account transfer from " + transferFrom + " to " + transferTo, "Transfer", "Finished", Double.parseDouble(amount), savingsAccount.getAccountBalance(), savingsAccount);
+            savingsTransactionDao.save(savingsTransaction);
         } else if (transferFrom.equalsIgnoreCase("Savings") && transferTo.equalsIgnoreCase("Primary")) {
             primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().add(new BigDecimal(amount)));
             savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));
             primaryAccountDao.save(primaryAccount);
             savingsAccountDao.save(savingsAccount);
 
-            SavingsTransaction savingsTransaction = new SavingsTransaction(new Date(), "Between account transfer from " + transferFrom + " to " + transferTo, "Transfer", "Finished", Double.parseDouble(amount), savingsAccount.getAccountBalance(), savingsAccount);
+            SavingsTransaction savingsTransaction = new SavingsTransaction(new Date(), "Between account transfer from " + transferFrom + " to " + transferTo, "Account", "Finished", Double.parseDouble(amount), savingsAccount.getAccountBalance(), savingsAccount);
             savingsTransactionDao.save(savingsTransaction);
+            PrimaryTransaction primaryTransaction = new PrimaryTransaction(new Date(), "Between account transfer from " + transferFrom + " to " + transferTo, "Transfer", "Finished", Double.parseDouble(amount), primaryAccount.getAccountBalance(), primaryAccount);
+            primaryTransactionDao.save(primaryTransaction);
+
         } else {
             throw new Exception("Invalid Transfer");
         }

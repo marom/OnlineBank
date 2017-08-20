@@ -9,7 +9,7 @@
             <h2 class="title">My Profile</h2>
             <hr/>
             <form method="post" th:action="@{/user/profile}">
-                <input type="hidden" name="id" th:value="${user.userId}"/>
+                <input type="hidden" name="userId" th:value="${user.userId}"/>
 
                 <div class="form-group">
                     <label for="firstName">First Name</label>

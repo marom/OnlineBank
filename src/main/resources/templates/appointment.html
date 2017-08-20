@@ -12,7 +12,7 @@
 
                 <div class="form-group">
                     <label for="dateString">Pick a Date and Time:</label>
-                    <div class="input-append date form_datetime input-group" data-date="2016-10-21T15:25:00Z">
+                    <div class="input-append date form_datetime input-group" data-date="2017-08-21T15:25:00Z">
                         <input class="form-control" type="text" value="" readonly="readonly"
                                th:value="${dateString}" name="dateString"
                                id="dateString" required="required"/>
@@ -55,4 +55,14 @@
 <div th:replace="common/header :: body-bottom-scripts"/>
 
 </body>
+
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        autoclose: true,
+        todayBtn: true,
+        startDate: "2017-08-21 09:00",
+        minuteStep: 15
+    });
+</script>
 </html>

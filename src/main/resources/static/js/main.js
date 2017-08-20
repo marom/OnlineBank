@@ -45,3 +45,4 @@ $.toggleShowPassword({
 });
 
 $.transferDisplay();
+

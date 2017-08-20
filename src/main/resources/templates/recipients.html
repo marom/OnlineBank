@@ -26,7 +26,8 @@
                     <td data-th-text="${eachRecipient.phone}">...</td>
                     <td data-th-text="${eachRecipient.accountNumber}">...</td>
                     <td data-th-text="${eachRecipient.description}">...</td>
-                    <td><a th:href="@{/transfer/recipients/delete?recipientName=}+${eachRecipient.name}"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a></td>
+                    <td><a class="text-danger" th:href="@{/transfer/recipients/delete?recipientName=}+${eachRecipient.name}">
+                        <i class="fa fa-trash-o fa-lg text-danger" aria-hidden="true"></i>  Delete</a></td>
                 </tr>
                 </tbody>
             </table>

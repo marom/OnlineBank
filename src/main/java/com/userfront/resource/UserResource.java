@@ -3,6 +3,7 @@ package com.userfront.resource;
 import com.userfront.domain.User;
 import com.userfront.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,16 @@ public class UserResource {
     @RequestMapping(value = "/user/all", method = RequestMethod.GET)
     public List<User> userList() {
         return userService.findUserList();
+    }
+
+    @RequestMapping("/user/{username}/enable")
+    public void enableUser(@PathVariable("username") String username) {
+        userService.enableUser(username);
+    }
+
+    @RequestMapping("/user/{username}/disable")
+    public void diableUser(@PathVariable("username") String username) {
+        userService.disableUser(username);
     }
 
 }

@@ -97,4 +97,18 @@ public class UserServiceImpl implements UserService {
         return (List<User>) userDao.findAll();
     }
 
+    @Override
+    public void enableUser(String username) {
+        User user = findByUsername(username);
+        user.setEnabled(true);
+        userDao.save(user);
+    }
+
+    @Override
+    public void disableUser(String username) {
+        User user = findByUsername(username);
+        user.setEnabled(false);
+        userDao.save(user);
+    }
+
 }

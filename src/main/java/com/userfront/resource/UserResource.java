@@ -1,6 +1,7 @@
 package com.userfront.resource;
 
 import com.userfront.domain.PrimaryTransaction;
+import com.userfront.domain.SavingsTransaction;
 import com.userfront.domain.User;
 import com.userfront.service.TransactionService;
 import com.userfront.service.UserService;
@@ -41,4 +42,8 @@ public class UserResource {
         return transactionService.findPrimaryAccountTransactions(username);
     }
 
+    @RequestMapping(value = "/user/savings/transaction", method = RequestMethod.GET)
+    public List<SavingsTransaction> getSavingsTransactionList(@RequestParam("username") String username) {
+        return transactionService.findSavingsAccountTransactions(username);
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -89,6 +90,11 @@ public class UserServiceImpl implements UserService {
             localUser = userDao.save(user);
         }
         return localUser;
+    }
+
+    @Override
+    public List<User> findUserList() {
+        return (List<User>) userDao.findAll();
     }
 
 }

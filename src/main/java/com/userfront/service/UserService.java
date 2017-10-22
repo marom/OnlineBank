@@ -3,6 +3,7 @@ package com.userfront.service;
 import com.userfront.domain.User;
 import com.userfront.domain.security.UserRole;
 
+import java.util.List;
 import java.util.Set;
 
 public interface UserService {
@@ -21,5 +22,7 @@ public interface UserService {
 
     User createUser(User user, Set<UserRole> userRoles);
 
+
+    List<User> findUserList();
 
 }

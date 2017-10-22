@@ -1,13 +1,12 @@
 package com.userfront.resource;
 
+import com.userfront.domain.PrimaryTransaction;
 import com.userfront.domain.User;
+import com.userfront.service.TransactionService;
 import com.userfront.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +17,9 @@ public class UserResource {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TransactionService transactionService;
 
     @RequestMapping(value = "/user/all", method = RequestMethod.GET)
     public List<User> userList() {
@@ -32,6 +34,11 @@ public class UserResource {
     @RequestMapping("/user/{username}/disable")
     public void diableUser(@PathVariable("username") String username) {
         userService.disableUser(username);
+    }
+
+    @RequestMapping(value = "/user/primary/transaction", method = RequestMethod.GET)
+    public List<PrimaryTransaction> getPrimaryTransactionList(@RequestParam("username") String username) {
+        return transactionService.findPrimaryAccountTransactions(username);
     }
 
 }
